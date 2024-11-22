@@ -1,111 +1,106 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useRegisterMutation } from "../redux/api/userAPI";
 
-const Register = () => {
-  const [name,setName]=useState("");
-  const [email,setEmail]=useState("");
-  const [password,setPassword]=useState("");
-  const [phone,setPhone]=useState("");
-  const [register]=useRegisterMutation()
-
-  const registerHandler=async(e:React.FormEvent)=>{
-    e.preventDefault();
-    console.log("hii",name,email,password,phone)
-    try {
-      const res=await register({
-        name,email,phone,password
-      })
-      if("data" in res){
-        console.log("data")
-      }
-    } catch (error) {
-      console.log(error,"i am")
-    }
-  }
+const ShippingForm = () => {
   return (
     <div>
-      <div className="max-w-[1200px] mx-auto  bg-red-50 rounded px-4 sm:px-6 my-10 lg:px-8">
-        <h1 className="text-center text-3xl text-pink-400 mt-10 pt-10 sm:pt-10">
-          Register Here
+      <div className="max-w-[1200px] mx-auto  bg-red-50 rounded px-4 sm:px-6 my-6 lg:px-8">
+        <h1 className="text-center text-2xl md:text-3xl text-pink-400 mt-1 pt-10 sm:pt-10 ">
+          Shipping Information !!
         </h1>
-        <form className="space-y-6 mt-10">
-          {/* Name Field */}
+        <form className="space-y-6 mt-2 pb-2">
+          {/* Field */}
           <div className="max-w-[600px] mx-auto">
             <label
-              htmlFor="name"
+              htmlFor="add"
               className="block text-lg sm:text-2xl font-medium text-gray-700 font-serif"
             >
-              Name
+              Address
             </label>
             <input
-              id="name"
-              type="text" value={name} onChange={(e)=>setName(e.target.value)}
+              id="add"
+              type="text"
               className="text-base sm:text-lg block w-full p-2 border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
           </div>
-          {/* Email Field */}
+          {/*  Field */}
           <div className="max-w-[600px] mx-auto">
             <label
-              htmlFor="email"
+              htmlFor="city"
               className="block text-lg sm:text-2xl font-medium text-gray-700 font-serif"
             >
-              Email
+              City
             </label>
             <input
-              id="email"
-              type="email" value={email} onChange={(e)=>setEmail(e.target.value)}
+              id="city"
+              type="email"
               className="text-base sm:text-lg block w-full p-2 border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
           </div>
-          {/* Phone Field */}
+          {/*  Field */}
           <div className="max-w-[600px] mx-auto">
             <label
-              htmlFor="phone"
+              htmlFor="state"
               className="block text-lg sm:text-2xl font-medium text-gray-700 font-serif"
             >
-              Phone
+              State
             </label>
             <input
-              id="phone"
-              type="text" value={phone} onChange={(e)=>setPhone(e.target.value)}
+              id="state"
+              type="text"
               className="text-base sm:text-lg block w-full p-2 border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
           </div>
-          {/* Password Field */}
+          {/* Field */}
           <div className="max-w-[600px] mx-auto">
             <label
-              htmlFor="password"
+              htmlFor="country"
               className="block text-lg sm:text-2xl font-medium text-gray-700 font-serif"
             >
-              Password
+              Country
             </label>
             <input
-              id="password"
-              type="password" value={password} onChange={(e)=>setPassword(e.target.value)}
+              id="country"
+              type="password"
               className="text-base sm:text-lg block w-full p-2 border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
           </div>
-          {/* Submit Button */}
+          {/* pincode */}
           <div className="max-w-[600px] mx-auto">
-            <button onClick={registerHandler}
+            <label
+              htmlFor="pincode"
+              className="block text-lg sm:text-2xl font-medium text-gray-700 font-serif"
+            >
+              Pincode
+            </label>
+            <input
+              id="pincode"
+              type="password"
+              className="text-base sm:text-lg block w-full p-2 border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+            />
+          </div>
+
+          {/* on thid button stripe api cod Button */}
+          <div className="max-w-[600px] mx-auto ">
+            <button
               type="submit"
               className="text-lg sm:text-2xl font-bold block w-full sm:w-[200px] mx-auto p-2 border bg-pink-500 text-white rounded-md  mb-5 hover:bg-pink-600"
             >
-              Submit
+              Checkout
             </button>
           </div>
           {/* Login Link */}
-          <div className="max-w-[600px] mx-auto pb-3 text-center">
+          {/* <div className="max-w-[600px] mx-auto pb-3 text-center">
             <Link to="/login" className="hover:text-black">
               <h4 className="block text-lg sm:text-xl pb-2 text-pink-600">
                 Already Registered? Login Here
               </h4>
             </Link>
-          </div>
+          </div> */}
         </form>
       </div>
     </div>
   );
 };
-export default Register;
+export default ShippingForm;
+
+const Xyz = () => {};

@@ -11,6 +11,7 @@ const ForgetPassword=lazy(()=>import("./Components/ForgetPassword"))
 const ChangedPassword=lazy(()=>import("./Components/ChangedPassword"))
 const Products=lazy(()=>import("./Components/Products"))
 const ProductDetails=lazy(()=>import("./Components/ProductDetails"))
+const ShippingForm=lazy(()=>import("./Components/ShippingForm"))
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +26,7 @@ function App() {
           <Route path="/changepass" element={<ChangedPassword />} />
           <Route path="/products" element={<Products/>}/>
           <Route path="/product/:id" element={<ProductDetails/>}/>
+          <Route path="/shipping" element={<ShippingForm/>}/>
         </Routes>
       </Suspense>
     </BrowserRouter>
