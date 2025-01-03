@@ -1,21 +1,28 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { registersentType,RegisterApiResponse } from "../api/apiResultType";
-export const userApi=createApi({
-    reducerPath:"userApi",
-    baseQuery:fetchBaseQuery({
-        baseUrl:"http://localhost:9000/api/v1/user/"
+import { registersentType,RegisterApiResponse,LoginSentType } from "../api/apiResultType";
+export const userApi = createApi({
+  reducerPath: "userApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:9000/api/v1/user/",
+  }),
+  endpoints: (builder) => ({
+    register: builder.mutation<RegisterApiResponse, registersentType>({
+      query: (user) => ({
+        // console.log(user,"user at register api")
+        // after base url endpoints
+        url: "register",
+        method: "POST",
+        body: user,
+      }),
     }),
-    endpoints:(builder)=>({
-        register:builder.mutation<RegisterApiResponse,registersentType>({
-            query: (user) => ({
-                // console.log(user,"user at register api")
-                // after base url endpoints
-                url: "register",
-                method: "POST",
-                body: user,
-              }),
-        })
+    login:builder.mutation<RegisterApiResponse,LoginSentType>({
+      query:(userforlogin)=>({
+        url:"login",
+        method:'POST',
+        body:userforlogin
+      })
     })
-})
+  })
+});
 
-export const {useRegisterMutation}=userApi
+export const { useRegisterMutation,useLoginMutation } = userApi;

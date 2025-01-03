@@ -1,28 +1,45 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../redux/api/userAPI";
+import toast from "react-hot-toast";
+import {RegisterApiResonse,
+  FailureResponseType,
+  registersentType,
+} from "../redux/api/apiResultType";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 const Register = () => {
-  const [name,setName]=useState("");
-  const [email,setEmail]=useState("");
-  const [password,setPassword]=useState("");
-  const [phone,setPhone]=useState("");
-  const [register]=useRegisterMutation()
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [register] = useRegisterMutation();
+  const navigate = useNavigate();
 
-  const registerHandler=async(e:React.FormEvent)=>{
+  const registerHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("hii",name,email,password,phone)
+    console.log("hii", name, email, password, phone);
     try {
-      const res=await register({
-        name,email,phone,password
-      })
-      if("data" in res){
-        console.log("data")
+      const res = await register({
+        name,
+        email,
+        phone,
+        password,
+      });
+      console.log(res, "i am res..");
+      if ("data" in res) {
+        toast.success("SucessFully Register");
+        navigate("/login");
+      } else {
+        const eror = res.error as FetchBaseQueryError;
+        const message = (eror.data as RegisterApiResonse).message;
+        toast.error(message);
       }
     } catch (error) {
-      console.log(error,"i am")
+      console.log(error, "i am");
+      toast.error("Registration Fail");
     }
-  }
+  };
   return (
     <div>
       <div className="max-w-[1200px] mx-auto  bg-red-50 rounded px-4 sm:px-6 my-10 lg:px-8">
@@ -40,7 +57,9 @@ const Register = () => {
             </label>
             <input
               id="name"
-              type="text" value={name} onChange={(e)=>setName(e.target.value)}
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="text-base sm:text-lg block w-full p-2 border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
           </div>
@@ -54,7 +73,9 @@ const Register = () => {
             </label>
             <input
               id="email"
-              type="email" value={email} onChange={(e)=>setEmail(e.target.value)}
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="text-base sm:text-lg block w-full p-2 border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
           </div>
@@ -68,7 +89,9 @@ const Register = () => {
             </label>
             <input
               id="phone"
-              type="text" value={phone} onChange={(e)=>setPhone(e.target.value)}
+              type="text"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
               className="text-base sm:text-lg block w-full p-2 border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
           </div>
@@ -82,13 +105,16 @@ const Register = () => {
             </label>
             <input
               id="password"
-              type="password" value={password} onChange={(e)=>setPassword(e.target.value)}
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="text-base sm:text-lg block w-full p-2 border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
           </div>
           {/* Submit Button */}
           <div className="max-w-[600px] mx-auto">
-            <button onClick={registerHandler}
+            <button
+              onClick={registerHandler}
               type="submit"
               className="text-lg sm:text-2xl font-bold block w-full sm:w-[200px] mx-auto p-2 border bg-pink-500 text-white rounded-md  mb-5 hover:bg-pink-600"
             >
