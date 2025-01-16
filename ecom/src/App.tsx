@@ -24,7 +24,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/order" element={<Order />} />
           <Route path="/forgetpass" element={<ForgetPassword />} />
-          <Route path="/changepass" element={<ChangedPassword />} />
+          <Route path="/changepass/:token" element={<ChangedPassword />} />
           <Route path="/products" element={<Products/>}/>
           <Route path="/product/:id" element={<ProductDetails/>}/>
           <Route path="/shipping" element={<ShippingForm/>}/>

@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { RegisterApiResponse } from "../redux/api/apiResultType";
 import { useDispatch } from "react-redux";
-import { userExist } from "../redux/reducer/useReducer";
+import { userExist, userNotExist } from "../redux/reducer/useReducer";
 import { User } from "../redux/types/type";
 
 const Login = () => {
@@ -26,6 +26,7 @@ const Login = () => {
       });
       if ("data" in res) {
         // console.log(res.data.data,"i am data")
+        dispatch(userNotExist())
         dispatch(userExist(res?.data?.data));
         toast.success("Successfully Login");
         navigate("/");

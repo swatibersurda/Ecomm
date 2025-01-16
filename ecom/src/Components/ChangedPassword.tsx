@@ -1,6 +1,15 @@
 import React from "react";
+import { useLocation, useParams } from "react-router-dom";
+
 
 const ChangedPassword = () => {
+  // const query=useQuery()
+  // const id=query.get("id")
+  // console.log(id,"i am token")
+  const {token}=useParams()
+  console.log(token)
+
+  
   return (
     <div className="h-screen flex justify-center items-center bg-cover bg-center bg-[url('https://images.pexels.com/photos/1831234/pexels-photo-1831234.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')]">
       <div className="w-full max-w-[1000px] p-8 border border-red-600 shadow-xl bg-white rounded-md">

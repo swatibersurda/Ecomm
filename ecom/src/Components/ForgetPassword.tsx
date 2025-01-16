@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import { useForgetPasswordMutation } from "../redux/api/userAPI";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const ForgetPassword = () => {
+  const [email, setEmail] = useState("");
+  const [forgetPassword] = useForgetPasswordMutation();
+  const navigate=useNavigate();
+  console.log(email, "i am email");
+  const addForgetEmail = async () => {
+    // here sent data to mutationhooks and then send
+    if (email !== "") {
+      const res = await forgetPassword({ email });
+      console.log(res, "i am ressss.....");
+      if (res?.error) {
+        toast.error(res?.error?.data?.message);
+      } else {
+        toast.success(res?.data?.message);
+        navigate("/login")
+      }
+    }
+  };
   return (
     <div className="h-screen flex justify-center items-center bg-cover bg-center bg-[url('https://images.pexels.com/photos/1831234/pexels-photo-1831234.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')]">
       <div className="w-full max-w-[1000px] p-8  shadow-xl bg-white rounded-md">
@@ -18,6 +38,7 @@ const ForgetPassword = () => {
             Email
           </label>
           <input
+            onChange={(e) => setEmail(e.target.value)}
             id="email"
             type="email"
             className="text-base sm:text-lg block w-full p-2 border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
@@ -25,6 +46,7 @@ const ForgetPassword = () => {
         </div>
         <div className="max-w-[600px] mx-auto mt-4">
           <button
+            onClick={addForgetEmail}
             type="submit"
             className="text-lg sm:text-2xl font-bold w-full mx-auto p-2 border bg-pink-500 text-white rounded-md hover:bg-pink-600"
           >
