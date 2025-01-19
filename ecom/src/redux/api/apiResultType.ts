@@ -22,7 +22,11 @@ export interface LoginSentType {
   email: string;
   password: string;
 }
-export interface changePasswordsentType{
-  token:string;
-  password:string
+type payload = {
+  email: string;
+  password: string;
+};
+export interface changePasswordsentType {
+  token: string;
+  payload: payload;
 }

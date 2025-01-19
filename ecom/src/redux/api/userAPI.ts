@@ -39,13 +39,13 @@ export const userApi = createApi({
       })
     }),
     changePassword:builder.mutation<RegisterApiResponse,changePasswordsentType>({
-      query:({token,password})=>({
+      query:({token,payload})=>({
         url:`/resetPassword/${token}`,
         method:"POST",
-        body:password
+        body:payload
       })
     })
   })
 });
 
-export const { useRegisterMutation,useLoginMutation,useLazyTokenBasedLoginQuery,useForgetPasswordMutation } = userApi;
+export const { useRegisterMutation,useLoginMutation,useLazyTokenBasedLoginQuery,useForgetPasswordMutation,useChangePasswordMutation } = userApi;
