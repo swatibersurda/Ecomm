@@ -26,7 +26,13 @@ type payload = {
   email: string;
   password: string;
 };
+
 export interface changePasswordsentType {
   token: string;
   payload: payload;
+}
+export interface addToCartSentType{
+  userId:string;
+  productId:string;
+  quantity:number
 }

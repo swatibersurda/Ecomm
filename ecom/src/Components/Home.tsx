@@ -7,7 +7,8 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useLazyTokenBasedLoginQuery } from "../redux/api/userAPI";
 import { useDispatch } from "react-redux";
-import { userExist, userNotExist } from "../redux/reducer/useReducer";
+import { selectUser, userExist, userNotExist } from "../redux/reducer/useReducer";
+import { useSelector } from "react-redux";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -19,6 +20,8 @@ const Home = () => {
   const token = query.get("token");
   const [trigger, { isLoading, data, error }] = useLazyTokenBasedLoginQuery();
   const dispatch = useDispatch();
+  const user=useSelector(selectUser)
+  console.log(user,"i am at home page")
   // console.log(token,"i am tokennn..")
   // if token there menas after that neeed to find the user on the basis of of token and
   // if(token){

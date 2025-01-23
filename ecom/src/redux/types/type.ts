@@ -10,4 +10,15 @@ export interface User {
   acessToken: string;
 }
 
+export interface Product{
+    _id: string;
+    name: string;
+    stock: number;
+    price: number;
+    pic: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+}
+
 
