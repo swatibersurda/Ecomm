@@ -12,8 +12,23 @@ export const cartApi=createApi({
             method:"POST",
             body:payload
         })
+        }),
+        removeFromeCart:builder.mutation<RegisterApiResponse,addToCartSentType>({
+        query:(payload)=>({
+            url:"/removefromcart",
+            method:"POST",
+            body:payload
+        })
+        }),
+        getcartByID:builder.query({
+            query:({id})=>{
+                console.log(id,"i u cartr")
+                return{
+                    url:`/${id}`
+                }
+            }
         })
     })
 })
 
-export const {useAddToCartMutation}=cartApi
+export const {useAddToCartMutation,useRemoveFromeCartMutation,useLazyGetcartByIDQuery}=cartApi
