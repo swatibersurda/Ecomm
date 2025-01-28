@@ -1,5 +1,5 @@
 import {createApi,fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import { addToCartSentType, RegisterApiResponse } from "./apiResultType";
+import { addToCartSentType, RegisterApiResponse, removeFromcart } from "./apiResultType";
 export const cartApi=createApi({
     reducerPath:"cartApi",
     baseQuery:fetchBaseQuery({
@@ -13,7 +13,7 @@ export const cartApi=createApi({
             body:payload
         })
         }),
-        removeFromeCart:builder.mutation<RegisterApiResponse,addToCartSentType>({
+        removeFromeCart:builder.mutation<RegisterApiResponse,removeFromcart>({
         query:(payload)=>({
             url:"/removefromcart",
             method:"POST",

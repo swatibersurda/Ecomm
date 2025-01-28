@@ -36,3 +36,8 @@ export interface addToCartSentType{
   productId:string;
   quantity:number
 }
+export interface removeFromcart{
+  userId:string;
+  productId:string;
+  quantity:number|null
+}
