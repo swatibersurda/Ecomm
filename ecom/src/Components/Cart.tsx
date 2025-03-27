@@ -1,38 +1,31 @@
 import Navbar from "./Navbar";
-import myIm from "../assets/2.jpg";
-import { FaDeleteLeft } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
 import { IoIosRemove } from "react-icons/io";
 import { MdDeleteForever } from "react-icons/md";
-import { RiDeleteBack2Fill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
-import { useAddToCartMutation, useGetcartByIDQuery, useLazyGetcartByIDQuery, useRemoveFromeCartMutation } from "../redux/api/cartAPI";
+import { useAddToCartMutation, useLazyGetcartByIDQuery, useRemoveFromeCartMutation } from "../redux/api/cartAPI";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/reducer/useReducer";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { Product } from "../redux/types/type";
+import { setCart } from "../redux/reducer/cartReducer";
+import { useDispatch } from "react-redux";
+// import { apiError } from "../redux/api/apiResultType";
+import { CartItem } from "../redux/types/type";
 
 const Cart = () => {
-  const [trigger,{data,isError,isLoading}]=useLazyGetcartByIDQuery()
-
+  const [trigger,{data}]=useLazyGetcartByIDQuery()
   const [addToCart]=useAddToCartMutation()
   const [removeFromCart]=useRemoveFromeCartMutation()
   const naviagate=useNavigate();
   const user=useSelector(selectUser);
-  console.log("user",user?._id)
-  // console.log(user,"i am user at cart pagee...")
-  console.log(data,"iam at cart data")
-  if(!user){
-  toast.error("login first")
-  naviagate("/login")
-  }
+  const dispatch=useDispatch();
   
 
-// add cart
-const handleAddProduct=async(productId:string)=>{
-  console.log(productId,"i am product is")
+  
+  const handleAddProduct=async(productId:string)=>{
+    if (!user?._id) return toast.error("User not logged in");
   const payload={
     userId:user?._id,
     productId:productId,
@@ -40,16 +33,16 @@ const handleAddProduct=async(productId:string)=>{
   }
 try{
 const res=await addToCart(payload)
-console.log(res,"iam res at addtocart")
-toast.success(res?.data?.message)
+toast.success(res?.data?.message as string)
 await trigger({id:user?._id})
 }catch(err){
-  toast.error(res?.data?.err)
+  toast.error("Not added")
 }
 }
 // remove one quantity from cart
 const handleRemoveOneFromCart=async(productId:string)=>{
-  console.log(productId,"i am product at removee...")
+  if (!user?._id) return toast.error("User not logged in");
+
   const payload={
     userId:user?._id,
     productId:productId,
@@ -57,47 +50,47 @@ const handleRemoveOneFromCart=async(productId:string)=>{
   }
   try{
     const res=await removeFromCart(payload)
-    console.log(res,"i am res at remove carttt")
-    toast.success(res?.data?.message)
+    toast.success(res?.data?.message as string)
     trigger({id:user?._id})
   }catch(err){
-    console.log(err,"i am errr")
+    toast.error("Error while removing")
   }
 
 }
 
 const deleteFromCart=async(productId:string)=>{
+  if (!user?._id) return toast.error("User not logged in");
  const payload={
   userId:user?._id,
   productId:productId,
   quantity:null
  } 
  try {
-  const res=await removeFromCart(payload)
-  console.log(res,"i am res at delete")
+  await removeFromCart(payload)
   trigger({id:user?._id})
  } catch (error) {
-  console.log(error)
+  toast.error("Failed to delete")
  }
+}
+const handleBuy=()=>{
+  naviagate("/shipping")
 }
 
 useEffect(()=>{
-  
- if(user._id){
-  trigger({id:user?._id})
- }
- else{
-  toast.error("Please Login First")
-  naviagate("/login")
- }
+   trigger({id:user?._id})
+
 },[user?._id,addToCart])
+
+useEffect(()=>{
+ dispatch(setCart(data?.data?.items))
+},[data])
 
 return (
     <>
       <Navbar />
       <h3 className="text-3xl text-pink-600 text-center mt-5">Your Cart !</h3>
       <h3 className="text-3xl text-pink-600 text-center mt-10">
-        Subtotal 1233455
+        Subtotal {data?.data?.totalAmount}
       </h3>
       <div className="w-full mx-auto">
         <h3 className="text-xl text-black-600 text-center mt-1">
@@ -105,13 +98,13 @@ return (
         </h3>
       </div>
       <div className="w-full flex items-center justify-center mt-2">
-        <button className="bg-pink-500 rounded-full px-4 py-4 text-white">
-          Proceed to Buy(cart items length)
+        <button className="bg-pink-500 rounded-full px-4 py-4 text-white" onClick={handleBuy}>
+          Proceed to Buy
         </button>
       </div>
      
 
-    {data?.data?.items.map((item)=>(
+    {data?.data?.items.map((item:CartItem)=>(
 
 <div className="max-w-[800px]  flex flex-col md:flex-row mx-auto gap-2 md:gap-12 mt-12 py-2 px-2 shadow-lg border border-pink-600">
 <div className="sm:w-full md:w-2/4">

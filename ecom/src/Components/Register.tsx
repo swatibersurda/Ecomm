@@ -2,10 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../redux/api/userAPI";
 import toast from "react-hot-toast";
-import {RegisterApiResonse,
-  FailureResponseType,
-  registersentType,
-} from "../redux/api/apiResultType";
+import {RegisterApiResponse} from "../redux/api/apiResultType";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 const Register = () => {
@@ -18,7 +15,6 @@ const Register = () => {
 
   const registerHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("hii", name, email, password, phone);
     try {
       const res = await register({
         name,
@@ -26,17 +22,15 @@ const Register = () => {
         phone,
         password,
       });
-      console.log(res, "i am res..");
       if ("data" in res) {
         toast.success("SucessFully Register");
         navigate("/login");
       } else {
         const eror = res.error as FetchBaseQueryError;
-        const message = (eror.data as RegisterApiResonse).message;
+        const message = (eror.data as RegisterApiResponse).message;
         toast.error(message);
       }
     } catch (error) {
-      console.log(error, "i am");
       toast.error("Registration Fail");
     }
   };

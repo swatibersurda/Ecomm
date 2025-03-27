@@ -1,6 +1,43 @@
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { selectUser } from "../redux/reducer/useReducer";
+// import { usePlaceOrderMutation } from "../redux/api/orderApi";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { addAddress } from "../redux/reducer/shippingReducer";
+import { useDispatch } from "react-redux";
 
 const ShippingForm = () => {
+  const user=useSelector(selectUser);
+  const navigate=useNavigate();
+  // const [placeOrder]=usePlaceOrderMutation()
+  const [address,setAddress]=useState("")
+  const[city,setCity]=useState("")
+  const [state,setState]=useState("")
+  const [country,setCountry]=useState("")
+  const [pin,setPin]=useState("")
+  const dispatch=useDispatch()
+    const handleBuy=(e:React.FormEvent)=>{
+
+      e.preventDefault();
+      if (!user?._id) {
+        toast.error("User not logged in");
+        return;
+      }
+     const payload={
+      userId:user?._id,
+      shippingInfo: {
+        address ,  
+         city,
+        state,
+        country,
+        pinCode:pin
+      }
+    }
+     dispatch(addAddress(payload))
+     navigate("/orders")
+  }
+
   return (
     <div>
       <div className="max-w-[1200px] mx-auto  bg-red-50 rounded px-4 sm:px-6 my-6 lg:px-8">
@@ -16,7 +53,7 @@ const ShippingForm = () => {
             >
               Address
             </label>
-            <input
+            <input onChange={(e)=>setAddress(e.target.value)} value={address}
               id="add"
               type="text"
               className="text-base sm:text-lg block w-full p-2 border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
@@ -30,9 +67,9 @@ const ShippingForm = () => {
             >
               City
             </label>
-            <input
+            <input onChange={(e)=>setCity(e.target.value)} value={city}
               id="city"
-              type="email"
+              type="text"
               className="text-base sm:text-lg block w-full p-2 border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
           </div>
@@ -44,7 +81,7 @@ const ShippingForm = () => {
             >
               State
             </label>
-            <input
+            <input onChange={(e)=>setState(e.target.value)} value={state}
               id="state"
               type="text"
               className="text-base sm:text-lg block w-full p-2 border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
@@ -58,9 +95,9 @@ const ShippingForm = () => {
             >
               Country
             </label>
-            <input
+            <input onChange={(e)=>setCountry(e.target.value)} value={country}
               id="country"
-              type="password"
+              type="text"
               className="text-base sm:text-lg block w-full p-2 border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
           </div>
@@ -72,30 +109,23 @@ const ShippingForm = () => {
             >
               Pincode
             </label>
-            <input
+            <input  onChange={(e)=>setPin(e.target.value)} value={pin}
               id="pincode"
-              type="password"
+              type="text"
               className="text-base sm:text-lg block w-full p-2 border border-pink-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
           </div>
 
           {/* on thid button stripe api cod Button */}
           <div className="max-w-[600px] mx-auto ">
-            <button
+            <button onClick={handleBuy}
               type="submit"
               className="text-lg sm:text-2xl font-bold block w-full sm:w-[200px] mx-auto p-2 border bg-pink-500 text-white rounded-md  mb-5 hover:bg-pink-600"
             >
               Checkout
             </button>
           </div>
-          {/* Login Link */}
-          {/* <div className="max-w-[600px] mx-auto pb-3 text-center">
-            <Link to="/login" className="hover:text-black">
-              <h4 className="block text-lg sm:text-xl pb-2 text-pink-600">
-                Already Registered? Login Here
-              </h4>
-            </Link>
-          </div> */}
+          
         </form>
       </div>
     </div>
@@ -103,4 +133,3 @@ const ShippingForm = () => {
 };
 export default ShippingForm;
 
-const Xyz = () => {};

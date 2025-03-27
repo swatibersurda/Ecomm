@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { useReducerIntialState } from "../types/reducersIntialState";
 import { User } from "../types/type";
+import { RootState } from "../store";
 // defined ts at userReducerIntialState and here we defined the value.
 const initialState: useReducerIntialState = {
   user: null,
@@ -22,4 +23,5 @@ export const useReducer = createSlice({
   },
 });
 export const { userExist, userNotExist } = useReducer.actions;
-export const selectUser=(state:useReducerIntialState)=>state?.useReducer?.user
+// export const selectUser=(state:useReducerIntialState)=>state?.useReducer?.user
+export const selectUser=(state:RootState)=>state?.useReducer?.user

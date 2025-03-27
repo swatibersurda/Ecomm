@@ -11,7 +11,6 @@ export const productReducer=createSlice({
     reducers:{
     // here we will right the actions if needed... here type of payload is product type array.
     getProd:(state,action:PayloadAction<Product[]>)=>{
-        console.log(action.payload,"i am payloaddd...")
         state.dataArray=action.payload;
         state.loading=false
     }}

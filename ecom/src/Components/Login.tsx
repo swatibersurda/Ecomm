@@ -8,6 +8,8 @@ import { RegisterApiResponse } from "../redux/api/apiResultType";
 import { useDispatch } from "react-redux";
 import { userExist, userNotExist } from "../redux/reducer/useReducer";
 import { User } from "../redux/types/type";
+// import { useSelector } from "react-redux";
+// import { useLazyGetcartByIDQuery } from "../redux/api/cartAPI";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,20 +17,20 @@ const Login = () => {
   const [login] = useLoginMutation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(email, password);
+  // const user=useSelector(selectUser)
   const loginHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(email, password);
     try {
       const res = await login({
         email,
         password,
       });
       if ("data" in res) {
-        // console.log(res.data.data,"i am data")
-        dispatch(userNotExist())
-        dispatch(userExist(res?.data?.data));
+        dispatch(userNotExist());
+        dispatch(userExist(res?.data?.data as User));
+        localStorage.setItem("token", res?.data?.data?.acessToken as string);
         toast.success("Successfully Login");
+        // triggerCart({id:user?._id})
         navigate("/");
       } else {
         const err = res.error as FetchBaseQueryError;
@@ -39,18 +41,16 @@ const Login = () => {
       toast.error("Failed to Login");
     }
   };
-
-  // const googleHandler = async () => {
-    // console.log("comingHER");
-    // trigger();
-    // here first google auth hit after that
-    
-  // };
+  // 165539046659-qmlefal7d90uskc1eau4cseaa93efo25.apps.googleusercontent.com
   const googleHandler = () => {
-    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=132607250846-fa99jip85k6tcsrtn79jl0mvoq46icka.apps.googleusercontent.com&redirect_uri=http://localhost:9000/api/v1/google/auth/google/callback&scope=profile email`;
+    
+    // this https://ecommdoorstep.onrender.com/api/v1/google/auth/google
+    // const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=165539046659-qmlefal7d90uskc1eau4cseaa93efo25.apps.googleusercontent.com&redirect_uri=http://localhost:9000/api/v1/google/auth/google/callback&scope=profile email`;
+    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=165539046659-qmlefal7d90uskc1eau4cseaa93efo25.apps.googleusercontent.com&redirect_uri=https://ecommdoorstep.onrender.com/api/v1/google/auth/google/callback&scope=profile email`;
+    console.log(googleAuthUrl, "i am urllll");
     window.location.href = googleAuthUrl;
   };
-  
+
   return (
     <div>
       <h1 className="text-center text-3xl text-pink-400 mt-10 pt-10 sm:pt-10">
@@ -96,7 +96,7 @@ const Login = () => {
             />
           </div>
           {/* login Button */}
-          <div className="max-w-[600px] mx-auto border border-red-500 mt-10">
+          <div className="max-w-[600px] mx-auto border mt-10">
             <button
               onClick={loginHandler}
               type="submit"

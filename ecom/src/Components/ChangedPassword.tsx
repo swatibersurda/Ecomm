@@ -1,15 +1,10 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useChangePasswordMutation } from "../redux/api/userAPI";
 import toast from "react-hot-toast";
 
 const ChangedPassword = () => {
-
-  // const query=useQuery()
-  // const id=query.get("id")
-  // console.log(id,"i am token")
   const { token } = useParams() as {token:string};
-  console.log(token);
   const [email,setEmail]=useState("")
   const [password,setPass]=useState("")
   const [changePassword]=useChangePasswordMutation()
@@ -27,12 +22,11 @@ const ChangedPassword = () => {
         token,
         payload
       })
-      console.log(res,"i am res after change Passwordd..")
       if(res.error){
-        toast.error(res?.error?.data?.message)
+        toast.error("Password did not Changed..")
       }
       else{
-        toast.success(res.data.message)
+        toast.success(res.data.message as string)
         navigate("/")
       }
     }catch(err){

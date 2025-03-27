@@ -1,20 +1,18 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useForgetPasswordMutation } from "../redux/api/userAPI";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const ForgetPassword = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState<string>("");
   const [forgetPassword] = useForgetPasswordMutation();
   const navigate=useNavigate();
-  console.log(email, "i am email");
   const addForgetEmail = async () => {
     // here sent data to mutationhooks and then send
     if (email !== "") {
-      const res = await forgetPassword({ email });
-      console.log(res, "i am ressss.....");
+      const res = await forgetPassword({email});
       if (res?.error) {
-        toast.error(res?.error?.data?.message);
+        toast.error("Something went wrong");
       } else {
         toast.success(res?.data?.message);
         navigate("/login")

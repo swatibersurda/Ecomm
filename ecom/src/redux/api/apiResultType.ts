@@ -1,4 +1,5 @@
-import { User } from "../types/type";
+// import ShippingForm from "../../Components/ShippingForm";
+import { User, Userplace } from "../types/type";
 
 export interface RegisterApiResponse {
   message: string;
@@ -6,6 +7,13 @@ export interface RegisterApiResponse {
   statusCode: number;
   sucess: boolean;
 }
+export interface placeOrderResponse{
+  message: string;
+  data: Userplace;
+  statusCode: number;
+  sucess: boolean; 
+}
+
 export interface registersentType {
   name: string;
   email: string;
@@ -40,4 +48,31 @@ export interface removeFromcart{
   userId:string;
   productId:string;
   quantity:number|null
+}
+ export type shippingInfo= {
+  address: string;
+  city: string;
+  state:string;
+  country:string;
+  pinCode:string;
+}
+export interface placeOrerSentType{
+  userId:string;
+  shippingInfo:shippingInfo;
+  
+   
+}
+export interface addprofileSentType{
+  id:string;
+  email:string
+  pic:string
+}
+
+export interface apiError{
+  sucess:boolean;
+  message:string;
+  statusCode:number
+}
+export interface email{
+  email:string
 }
