@@ -6,7 +6,7 @@ The following is the tech stack I used to build this website:-
 
 <img src="https://cdn-icons-png.flaticon.com/512/226/226269.png" width=20/> HTML
 
-<img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" width=20 /> CSS
+<img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" width=20 /> Tailwind CSS
 
 <img src="https://cdn-icons-png.flaticon.com/512/1199/1199124.png" width=20/> JavaScript
 
@@ -14,38 +14,40 @@ The following is the tech stack I used to build this website:-
 
 <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/redux-icon.png" width=20 /> Redux toolkit
 
-<img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/redux-icon.png" width=20 /> Typescript
+<img src="https://cdn-icons-png.flaticon.com/128/5968/5968381.png" width=20 /> Typescript
 
-<img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/redux-icon.png" width=20 /> Tailwind
+
 
 
 
 ## Login Page :
-The user will log in by entering his/her username and password.
+The user will log in by entering his/her username and password or can Google Login.
 
-![Login_Page](https://github.com/swatibersurda/Dish-Polling-App/blob/main/syook/src/images/loginn.PNG?raw=true)
+![Login_Page](https://github.com/swatibersurda/Ecomm/blob/main/ecom/src/assets/login.PNG?raw=true)
 
-After Successfully Login redirected to Poll Page.............
+After Successfully Login redirected to Home Page.............
 
-## Poll Page Section :
-I have added the Poll Page section to the navbar.
+## Home Page Section :
+![Home_Page](https://github.com/swatibersurda/Ecomm/blob/main/ecom/src/assets/homePage.PNG?raw=true)
 
-Left Section: The user can select the top 3 Dishes as per his choice from the provided choices and as per the selection he/she will get a ranking and submit the selection.
-Right Section: Displaying Dishes on the App which is fetched from the backend.
-
+I have added three section inside Navbar Product Page,Cart Page(using Logo) and Order Page`
 
 
+## Add update Profile Pic Section :  
+ 
+Click on the name of user or click on the image before the shopping cart from there you can update or add image if image is not uploaded during Register.....
+![Add Profile pic_Page]()
 
-![Poll_Page](https://github.com/swatibersurda/PollDishName_App/blob/main/syook/src/images/PollPage.PNG?raw=true)
+
+Will redirect to UserProfile pic edit/updatePage...............
+![Add Profile pic_Page](https://github.com/swatibersurda/Ecomm/blob/main/ecom/src/assets/addProfilePic.PNG?raw=true)
 
 
-## Result Section :
-I have added the Poll Page section to the navbar.
 
-Left Section: The user can or can not  Edit the top 3 Dishes as per his choice from the provided choices.
-Right Section: Displaying rank of Dishes Polled by all users including the logged-in user.
+## Product Section :
+I have added the Product Page section to the navbar.In this section I am fecthing and displaying all Product with there details.
 
-![Result_Page](https://github.com/swatibersurda/Dish-Polling-App/blob/main/syook/src/images/resullt.PNG?raw=true)
+![Product_Page](https://github.com/swatibersurda/Ecomm/blob/main/ecom/src/assets/productPage.PNG?raw=true)
 
 
 
