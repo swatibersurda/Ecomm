@@ -2,6 +2,8 @@ import { lazy, Suspense } from "react";
 import "./App.css";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+// i am at app page.
+// yo are
 // import Cookies from "js-cookie";
 import Loader from "./Components/Loader";
 import { useSelector } from "react-redux";
